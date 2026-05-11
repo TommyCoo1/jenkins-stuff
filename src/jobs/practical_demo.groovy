@@ -1,3 +1,5 @@
+package jobs
+
 def environments = ['dev', 'staging', 'prod']
 
 environments.each { env ->

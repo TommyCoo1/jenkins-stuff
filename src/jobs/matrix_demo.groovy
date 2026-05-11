@@ -1,3 +1,5 @@
+package jobs
+
 def REPO = 'https://github.com/TommyCoo1/jenkins-stuff.git'
 
 def branches = ['main']

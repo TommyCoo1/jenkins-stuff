@@ -1,3 +1,5 @@
+package jobs
+
 job('seed-job') {
     description('Der Meta-Seed-Job: Generiert alle anderen Jobs aus dem Git-Repo und aktualisiert sich selbst.')
 

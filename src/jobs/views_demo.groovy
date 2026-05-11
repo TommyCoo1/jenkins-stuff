@@ -1,3 +1,5 @@
+package jobs
+
 listView('Alle Deployments') {
     description('Zeigt alle Deployment-Jobs')
     jobs {

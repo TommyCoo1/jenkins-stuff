@@ -1,3 +1,5 @@
+package jobs
+
 import util.JobBuilder
 
 def REPO = 'https://github.com/TommyCoo1/jenkins-stuff.git'
