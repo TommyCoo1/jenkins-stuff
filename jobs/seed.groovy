@@ -19,7 +19,10 @@ job('seed-job') {
             targets('jobs/**/*.groovy')
             
             // classpath
-            additionalClasspath('src')
+            additionalClasspath('src/main/groovy')
+            
+            // 
+            sandbox(false)
             
             // delete in repo -> delete job
             removedJobAction('DELETE')
