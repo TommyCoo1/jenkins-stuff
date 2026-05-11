@@ -1,6 +1,6 @@
 package jobs
 
-import jobs.SimpleJobBuilder
+import util.SimpleJobBuilder
 
 // Ordner für die Demo-Jobs
 folder('simple-demos') {
