@@ -1,20 +1,17 @@
 package jobs
 
-import util.SimpleJobBuilder
+def helpers = evaluate(readFileFromWorkspace('src/util/helpers.groovy'))
 
-// Ordner für die Demo-Jobs
 folder('simple-demos') {
-    description('Jobs erstellt mit dem SimpleJobBuilder')
+    description('Jobs erstellt mit Helper-Script')
 }
 
-// Beispiel 1: Ein ganz einfacher Job
-new SimpleJobBuilder(
+helpers.createSimpleJob(this, [
     jobName: 'simple-demos/hello-world',
     description: 'Ein einfacher Hello World Job',
     shellCommand: 'echo "Hello from the demo script!"'
-).build(this)
+])
 
-// Beispiel 2: Eine Liste von Jobs generieren
 def maintenanceTasks = [
     [name: 'cleanup-tmp', cmd: 'rm -rf /tmp/*'],
     [name: 'check-disk',  cmd: 'df -h'],
@@ -22,9 +19,9 @@ def maintenanceTasks = [
 ]
 
 maintenanceTasks.each { task ->
-    new SimpleJobBuilder(
+    helpers.createSimpleJob(this, [
         jobName: "simple-demos/${task.name}",
         description: "Maintenance Task: ${task.name}",
         shellCommand: task.cmd
-    ).build(this)
+    ])
 }
