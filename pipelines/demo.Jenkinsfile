@@ -1,7 +1,11 @@
-job('demo-freestyle') {
-    description('Per Job DSL aus Git erzeugter Freestyle-Job')
-    label('')
-    steps {
-        shell('echo "Hallo aus generierten Job TEST TEST"')
+pipeline {
+    agent any
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hallo aus der generierten Pipeline HOHOHO!'
+                sh 'echo "Ich laufe in Shell-Skript HOOAA!"'
+            }
+        }
     }
 }
