@@ -1,9 +1,9 @@
 def REPO = 'https://github.com/TommyCoo1/jenkins-stuff.git'
 
 def services = [
-    [name: 'auth-service',    buildCmd: './gradlew :auth:build',    hasTests: true ],
-    [name: 'user-service',    buildCmd: './gradlew :user:build',    hasTests: true ],
-    [name: 'gateway',         buildCmd: './gradlew :gateway:build', hasTests: false],
+    [name: 'auth-service',    tasks: ':auth:build',    hasTests: true ],
+    [name: 'user-service',    tasks: ':user:build',    hasTests: true ],
+    [name: 'gateway',         tasks: ':gateway:build', hasTests: false],
 ]
 
 // Folder anlegen
@@ -30,11 +30,20 @@ services.each { svc ->
 
         steps {
             shell("echo \"Building ${svc.name}...\"")
-            shell(svc.buildCmd)
+            
+            // Nutze den 'gradle' Step statt 'shell' für bessere Jenkins-Integration
+            gradle {
+                tasks(svc.tasks)
+                useWrapper(false) // Falls kein Wrapper im Repo ist
+            }
 
-            // Nur wenn Tests existieren
+            // Wenn Tests existieren, führe sie auch wirklich aus
             if (svc.hasTests) {
                 shell("echo \"Running tests for ${svc.name}...\"")
+                gradle {
+                    tasks(svc.tasks.replace('build', 'test'))
+                    useWrapper(false)
+                }
             }
         }
     }

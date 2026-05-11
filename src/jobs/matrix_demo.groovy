@@ -1,6 +1,6 @@
 def REPO = 'https://github.com/TommyCoo1/jenkins-stuff.git'
 
-def branches = ['main', 'develop']
+def branches = ['main']
 def jdkVersions = ['jdk17', 'jdk21']
 
 folder('matrix-builds') {
