@@ -1,6 +1,6 @@
 import groovy.io.FileType
 import javaposse.jobdsl.dsl.DslScriptLoader
-import javaposse.jobdsl.plugin.JenkinsJobManagement
+import javaposse.jobdsl.dsl.MemoryJobManagement
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -9,7 +9,7 @@ class JobScriptsSpec extends Specification {
     @Unroll
     def "test script #file.name"(File file) {
         given:
-        def jm = new JenkinsJobManagement(System.out, [:], new File('.'))
+        def jm = new MemoryJobManagement()
 
         when:
         new DslScriptLoader(jm).runScript(file.text)

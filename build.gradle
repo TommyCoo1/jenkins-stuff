@@ -35,16 +35,19 @@ configurations {
 }
 
 dependencies {
-    implementation localGroovy()
+    implementation 'org.codehaus.groovy:groovy:3.0.21'
+    implementation "org.jenkins-ci.plugins:job-dsl-core:${jobDslVersion}"
 
     testImplementation 'org.spockframework:spock-core:2.3-groovy-3.0'
     testImplementation 'org.jenkins-ci.main:jenkins-test-harness:2411.v1e79b_0dc94b_7'
     testImplementation "org.jenkins-ci.main:jenkins-war:${jenkinsVersion}"
 
-    // testImplementation "org.jenkins-ci.plugins:job-dsl:${jobDslVersion}"
-    // testImplementation "org.jenkins-ci.plugins:job-dsl:${jobDslVersion}@jar"
-    // testImplementation 'org.jenkins-ci.plugins:structs:338.v848422169819@jar'
-    // testImplementation 'org.jenkins-ci.plugins:script-security:1369.v9b_98a_4e95b_2d@jar'
+    testImplementation "org.jenkins-ci.plugins:job-dsl:${jobDslVersion}"
+    testImplementation "org.jenkins-ci.plugins:job-dsl:${jobDslVersion}@jar"
+    testImplementation 'org.jenkins-ci.plugins:structs:338.v848422169819@jar'
+    testImplementation 'org.jenkins-ci.plugins:script-security:1369.v9b_98a_4e95b_2d@jar'
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 test {

@@ -15,16 +15,12 @@ job('seed-job') {
     }
 
     steps {
-        shell('mkdir -p build/classes && groovyc -d build/classes src/main/groovy/util/JobBuilder.groovy')
-
-        jobDsl {
-            targets('jobs/**/*.groovy')
+        dsl {
+            external('jobs/**/*.groovy')
             // classpath
-            additionalClasspath('build/classes')
-            sandbox(false)
-            // delete in repo -> delete job
-            removedJobAction('DELETE')
-            removedViewAction('DELETE')
+            additionalClasspath('src/main/groovy')
+            removeAction('DELETE')
+            removeViewAction('DELETE')
         }
     }
 }
