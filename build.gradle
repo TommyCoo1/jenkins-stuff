@@ -1,0 +1,54 @@
+apply plugin: 'groovy'
+
+ext {
+    jobDslVersion = '1.93'
+    jenkinsVersion = '2.479.3'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://repo.jenkins-ci.org/public/'
+    }
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDirs = ['src/main/groovy']
+        }
+    }
+    jobs {
+        groovy {
+            srcDirs = ['jobs']
+        }
+    }
+    test {
+        groovy {
+            srcDirs = ['src/test/groovy']
+        }
+    }
+}
+
+configurations {
+    testPlugins {}
+}
+
+dependencies {
+    implementation localGroovy()
+
+    testImplementation 'org.spockframework:spock-core:2.3-groovy-3.0'
+    testImplementation 'org.jenkins-ci.main:jenkins-test-harness:2411.v1e79b_0dc94b_7'
+    testImplementation "org.jenkins-ci.main:jenkins-war:${jenkinsVersion}"
+
+    implementation "org.jenkins-ci.plugins:job-dsl:${jobDslVersion}"
+    implementation "org.jenkins-ci.plugins:job-dsl:${jobDslVersion}@jar"
+    implementation 'org.jenkins-ci.plugins:structs:338.v848422169819@jar'
+    implementation 'org.jenkins-ci.plugins:script-security:1369.v9b_98a_4e95b_2d@jar'
+}
+
+test {
+    inputs.files sourceSets.jobs.groovy.srcDirs
+    systemProperty 'buildDirectory', project.buildDir.absolutePath
+    useJUnitPlatform()
+}
