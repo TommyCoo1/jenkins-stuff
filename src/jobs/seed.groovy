@@ -16,9 +16,9 @@ job('seed-job') {
 
     steps {
         dsl {
-            external('jobs/**/*.groovy')
-            // classpath
-            additionalClasspath('src/main/groovy')
+            external('src/jobs/*.groovy')
+            // Jenkins compiles util/JobBuilder.groovy from this classpath
+            additionalClasspath('src')
             removeAction('DELETE')
             removeViewAction('DELETE')
         }

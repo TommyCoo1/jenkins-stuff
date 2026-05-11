@@ -15,17 +15,19 @@ repositories {
 sourceSets {
     main {
         groovy {
-            srcDirs = ['src/main/groovy']
+            // src/ is the root so 'package util' resolves to src/util/
+            srcDirs = ['src']
+            include 'util/**'
         }
     }
     jobs {
         groovy {
-            srcDirs = ['jobs']
+            srcDirs = ['src/jobs']
         }
     }
     test {
         groovy {
-            srcDirs = ['src/test/groovy']
+            srcDirs = ['test/groovy']
         }
     }
 }

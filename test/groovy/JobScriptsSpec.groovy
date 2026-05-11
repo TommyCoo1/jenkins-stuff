@@ -23,7 +23,7 @@ class JobScriptsSpec extends Specification {
 
     static List<File> collectDslFiles() {
         def files = []
-        new File('jobs').eachFileRecurse(FileType.FILES) {
+        new File('src/jobs').eachFileRecurse(FileType.FILES) {
             if (it.name.endsWith('.groovy')) {
                 files << it
             }
