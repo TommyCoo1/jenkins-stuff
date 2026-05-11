@@ -1,4 +1,4 @@
-package util
+package jobs
 
 import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
