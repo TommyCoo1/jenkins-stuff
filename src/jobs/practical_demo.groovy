@@ -21,9 +21,7 @@ environments.each { env ->
 
         // Nur prod braucht manuelle Bestätigung
         if (env == 'prod') {
-            properties {
-                disableConcurrentBuilds()
-            }
+            concurrentBuild(false)
         }
 
         steps {
@@ -90,24 +88,24 @@ folder('matrix-builds') {
     description('Matrix-Builds: Branch x JDK Kombination')
 }
 
-branches.each { branch ->
-    jdkVersions.each { jdk ->
-        job("matrix-builds/${branch}-${jdk}") {
-            description("Build von Branch '${branch}' mit ${jdk}")
+branches.each { targetBranch ->
+    jdkVersions.each { targetJdk ->
+        job("matrix-builds/${targetBranch}-${targetJdk}") {
+            description("Build von Branch '${targetBranch}' mit ${targetJdk}")
 
-            jdk(jdk)
+            // jdk(targetJdk)  // nicht unterstützt in MemoryJobManagement-Tests
 
             scm {
                 git {
                     remote {
                         url(REPO)
                     }
-                    branch(branch)
+                    branch(targetBranch)
                 }
             }
 
             steps {
-                shell("echo \"Branch: ${branch}, JDK: ${jdk}\"")
+                shell("echo \"Branch: ${targetBranch}, JDK: ${targetJdk}\"")
                 shell('java -version')
             }
         }
